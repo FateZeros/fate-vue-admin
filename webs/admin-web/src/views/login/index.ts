@@ -1,37 +1,18 @@
-import { defineComponent, onBeforeMount, reactive, ref } from 'vue';
-import { getCapture } from '@/api/login';
+import { defineComponent, ref } from 'vue';
+import CAccount from './components/account/index.vue';
+import CBorderCircle from '@/components/border-circle/index.vue';
 
 export default defineComponent({
 	name: 'VLogin',
+	components: {
+		CAccount,
+		CBorderCircle,
+	},
 	setup() {
-		const form = reactive({
-			userName: '',
-			password: '',
-			remember: '',
-		});
-		const loading = ref<boolean>(false);
-
-		async function onFinish() {
-			console.log(form, 11);
-		}
-
-		async function getCaptchaImage() {
-			try {
-				const res = await getCapture();
-				console.log(res, 11);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-
-		onBeforeMount(() => {
-			getCaptchaImage();
-		});
+		const activeKey = ref<string>('account');
 
 		return {
-			form,
-			loading,
-			onFinish,
+			activeKey,
 		};
 	},
 });

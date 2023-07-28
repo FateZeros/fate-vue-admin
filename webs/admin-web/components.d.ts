@@ -6,15 +6,21 @@
 export {}
 
 declare module 'vue' {
-	export interface GlobalComponents {
-		AButton: typeof import('ant-design-vue/es')['Button'];
-		ACheckbox: typeof import('ant-design-vue/es')['Checkbox'];
-		AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider'];
-		AForm: typeof import('ant-design-vue/es')['Form'];
-		AFormItem: typeof import('ant-design-vue/es')['FormItem'];
-		AInput: typeof import('ant-design-vue/es')['Input'];
-		AInputPassword: typeof import('ant-design-vue/es')['InputPassword'];
-		RouterLink: typeof import('vue-router')['RouterLink'];
-		RouterView: typeof import('vue-router')['RouterView'];
-	}
+  export interface GlobalComponents {
+    AButton: typeof import('ant-design-vue/es')['Button']
+    ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
+    ACol: typeof import('ant-design-vue/es')['Col']
+    AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
+    AForm: typeof import('ant-design-vue/es')['Form']
+    AFormItem: typeof import('ant-design-vue/es')['FormItem']
+    AInput: typeof import('ant-design-vue/es')['Input']
+    AInputPassword: typeof import('ant-design-vue/es')['InputPassword']
+    ARow: typeof import('ant-design-vue/es')['Row']
+    ATabPane: typeof import('ant-design-vue/es')['TabPane']
+    ATabs: typeof import('ant-design-vue/es')['Tabs']
+    BorderCircle: typeof import('./src/components/border-circle/index.vue')['default']
+    BorderColorCircle: typeof import('./src/components/border-color-circle/index.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+  }
 }

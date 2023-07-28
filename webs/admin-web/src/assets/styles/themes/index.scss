@@ -1,4 +1,6 @@
-.themes {
-	// themes
-	width: 100%;
+@import './color';
+
+
+:root {
+    --common-primary-color: #fff;
 }

@@ -1,14 +1,12 @@
+import { ILoginData } from '@/types';
 import request from '@/utils/request';
 
 /**
  * 获取登录验证码
  * @returns
  */
-export function getCapture() {
-	return request({
-		url: '/api/v1/getCaptcha',
-		method: 'get',
-	});
+export function getCapture<T>() {
+	return request.get<T>('/api/v1/getCaptcha', {}, { title: '获取登录验证码' });
 }
 
 /**
@@ -16,10 +14,6 @@ export function getCapture() {
  * @param data
  * @returns
  */
-export function login(data: object) {
-	return request({
-		url: '/login',
-		method: 'post',
-		data,
-	});
+export function login<T>(data: ILoginData) {
+	return request.post<T>('/login', data, { title: '登录' });
 }

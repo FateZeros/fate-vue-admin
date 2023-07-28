@@ -1,0 +1,13 @@
+.c-account {
+    @include size;
+
+    &-code-img {
+        @include size(100%, auto);
+
+        cursor: pointer;
+    }
+
+    &-login-btn {
+        @include size(100%, auto);
+    }
+}

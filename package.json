@@ -1,57 +1,64 @@
 {
-    "name": "fate-vue-admin",
-    "version": "0.0.1",
-    "description": "vue3 admin project with ts monorepo",
-    "scripts": {
-        "prepare": "husky install",
-        "admin:dev": "pnpm run --filter admin-web dev",
-        "admin:build": "pnpm run --filter admin-web build"
-    },
-    "keywords": [
-        "vue3"
-    ],
-    "author": "FateJane",
-    "license": "ISC",
-    "dependencies": {
-        "typescript": "^5.1.6",
-        "vue": "^3.3.4"
-    },
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^6.2.0",
-        "@typescript-eslint/parser": "^6.2.0",
-        "eslint": "^8.45.0",
-        "eslint-plugin-vue": "^9.15.1",
-        "husky": "^8.0.3",
-        "lint-staged": "^13.2.3",
-        "prettier": "^3.0.0",
-        "sass": "^1.64.1",
-        "stylelint": "^15.10.2",
-        "stylelint-config-prettier-scss": "^1.0.0",
-        "stylelint-config-rational-order": "^0.1.2",
-        "stylelint-config-recommended-scss": "^12.0.0",
-        "stylelint-config-standard": "^34.0.0",
-        "stylelint-config-standard-scss": "^10.0.0",
-        "stylelint-config-standard-vue": "^1.0.0",
-        "stylelint-order": "^6.0.3"
-    },
-    "engines": {
-        "node": ">= 16.0.0",
-        "pnpm": ">= 7.0.0"
-    },
-    "lint-staged": {
-        "*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
-            "eslint --fix",
-            "prettier --write",
-            "git add"
-        ],
-        "*.{vue,css,less,scss,sass}": [
-            "stylelint --fix",
-            "prettier --write",
-            "git add"
-        ],
-        "*.{html,json}": [
-            "prettier --write",
-            "git add"
-        ]
-    }
+	"name": "fate-vue-admin",
+	"version": "0.0.1",
+	"description": "vue3 admin project with ts monorepo",
+	"scripts": {
+		"prepare": "husky install",
+		"admin:dev": "pnpm run --filter admin-web dev",
+		"admin:build": "pnpm run --filter admin-web build"
+	},
+	"keywords": [
+		"vue3",
+		"ant-design-vue4.0"
+	],
+	"author": "FateJane",
+	"license": "ISC",
+	"dependencies": {
+		"ant-design-vue": "^4.0.0",
+		"axios": "^1.4.0",
+		"typescript": "^5.1.6",
+		"vue": "^3.3.4",
+		"vue-router": "^4.2.4"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^6.2.0",
+		"@typescript-eslint/parser": "^6.2.0",
+		"eslint": "^8.45.0",
+		"eslint-plugin-vue": "^9.15.1",
+		"husky": "^8.0.3",
+		"lint-staged": "^13.2.3",
+		"prettier": "^3.0.0",
+		"qs": "^6.11.2",
+		"sass": "^1.64.1",
+		"stylelint": "^15.10.2",
+		"stylelint-config-prettier-scss": "^1.0.0",
+		"stylelint-config-rational-order": "^0.1.2",
+		"stylelint-config-recommended-scss": "^12.0.0",
+		"stylelint-config-standard": "^34.0.0",
+		"stylelint-config-standard-scss": "^10.0.0",
+		"stylelint-config-standard-vue": "^1.0.0",
+		"stylelint-order": "^6.0.3",
+		"unplugin-vue-components": "^0.25.1",
+		"vue-eslint-parser": "^9.3.1"
+	},
+	"engines": {
+		"node": ">= 16.0.0",
+		"pnpm": ">= 7.0.0"
+	},
+	"lint-staged": {
+		"*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": [
+			"eslint --fix",
+			"prettier --write",
+			"git add"
+		],
+		"*.{vue,css,less,scss,sass}": [
+			"stylelint --fix",
+			"prettier --write",
+			"git add"
+		],
+		"*.{html,json}": [
+			"prettier --write",
+			"git add"
+		]
+	}
 }

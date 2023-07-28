@@ -58,3 +58,7 @@ pnpm add lint-staged -w -D
 
 npx husky add .husky/pre-commit "pnpm lint-staged"
 ```
+
+## 参考
+
+[vite + vue3 + ts 项目配置](https://juejin.cn/post/7120947327879086093)

@@ -2,15 +2,11 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { merge } from 'lodash-es';
 
-export interface HttpConfig {
-	serverUrl: string;
-}
-
 /**
  * Http 响应数据
  * @public
  */
-export interface HttpResponseData<T> {
+export interface HttpResponse<T> {
 	/**
 	 * code 码
 	 */
@@ -25,43 +21,67 @@ export interface HttpResponseData<T> {
 	data: T;
 }
 
-export interface ExpandInternalAxiosRequestConfig<D = any> extends InternalAxiosRequestConfig<D> {
-	title: string;
-	showTip?: boolean;
-	showErrorMessage?: boolean;
+/**
+ * 拦截器钩子
+ */
+export interface InterceptorHooks {
+	beforeRequestCallback?: (request: ExpandAxiosRequestConfig) => void;
+	beforeResponseCallback?: (response: ExpandAxiosResponse) => void;
 }
 
-export interface ExpandAxiosResponse<D = any> extends AxiosResponse<D> {
-	code: number;
-	config: ExpandInternalAxiosRequestConfig;
+/**
+ * 拓展自定义请求配置
+ */
+export interface ExpandAxiosRequestConfig<D = any> extends AxiosRequestConfig<D> {
+	interceptorHooks?: InterceptorHooks;
+	// api title
+	title?: string;
+	// 是否展示 loading 动画
+	showLoading?: boolean;
+	// 是否展示异常消息
+	showErrorMessage?: boolean;
+	// 是否数据转换
+	transform?: boolean;
+}
+
+/**
+ * 拓展 axios 请求配置
+ */
+export interface ExpandInternalAxiosRequestConfig<D = any> extends InternalAxiosRequestConfig<D> {
+	interceptorHooks?: InterceptorHooks;
+	// httpOptions?: HttpOptions;
+	// 是否展示 loading 动画
+	showLoading?: boolean;
+	// 是否展示异常消息
+	showErrorMessage?: boolean;
+	// 是否数据转换
+	transform?: boolean;
+}
+
+/**
+ * 拓展 axios 返回配置
+ */
+export interface ExpandAxiosResponse<T = any, D = any> extends AxiosResponse<T, D> {
+	config: ExpandInternalAxiosRequestConfig<D>;
 }
 
 export class Http {
-	constructor(config: HttpConfig) {
-		const { serverUrl } = config;
-
-		this._http = this.create(serverUrl);
-	}
+	private defaultConfig: ExpandAxiosRequestConfig = {
+		// 请求超时时间
+		timeout: 30 * 1000,
+	};
 
 	/**
 	 * http axios 实例
 	 */
-	public _http: AxiosInstance;
+	private _http: AxiosInstance;
 
-	/**
-	 * 创建 Axios 实例
-	 * @param baseURL - 基准 url
-	 * @returns Axios 实例
-	 */
-	private create(baseURL: string): AxiosInstance {
-		const instance = axios.create({
-			baseURL,
-			timeout: 30 * 1000,
-		});
-		this.useRequest(instance);
-		this.useResponse(instance);
+	constructor(config: ExpandAxiosRequestConfig = {}) {
+		const axiosConfig = merge(this.defaultConfig, config);
+		this._http = axios.create(axiosConfig);
 
-		return instance;
+		this.interceptRequest();
+		this.interceptResponse();
 	}
 
 	/**
@@ -69,11 +89,15 @@ export class Http {
 	 * @param instance - Axios 实例
 	 * @returns
 	 */
-	private useRequest(instance: AxiosInstance) {
-		instance.interceptors.request.use(
-			async (config: InternalAxiosRequestConfig) => {
-				const { title, showTip = false, showErrorMessage = true } = config as ExpandInternalAxiosRequestConfig;
-				return Promise.resolve({ ...config, title, showTip, showErrorMessage });
+	private interceptRequest(): void {
+		this._http.interceptors.request.use(
+			async (config: ExpandInternalAxiosRequestConfig) => {
+				// hook
+				if (config.interceptorHooks?.beforeRequestCallback) {
+					config.interceptorHooks.beforeRequestCallback(config);
+				}
+
+				return config;
 			},
 			(error: AxiosError) => {
 				return Promise.reject(error);
@@ -86,23 +110,27 @@ export class Http {
 	 * @param instance - Axios 实例
 	 * @returns
 	 */
-	private useResponse(instance: AxiosInstance) {
-		instance.interceptors.response.use(
-			(response: AxiosResponse) => {
-				const { code, data, config } = response as ExpandAxiosResponse;
-				console.log(config, 11);
-				if (code === 200) {
-					if (data.hasError) {
-						// if (config.showErrorMessage) {
-						// 	message.error(data.message || `${config.title || '请求'}失败`);
-						// }
-					} else {
-						// if (config.showTip) {
-						// 	message.success(`${config.title || '请求'}成功`);
-						// }
-					}
+	private interceptResponse(): void {
+		this._http.interceptors.response.use(
+			async (response: ExpandAxiosResponse) => {
+				// hook
+				if (response.config.interceptorHooks?.beforeResponseCallback) {
+					response.config.interceptorHooks.beforeResponseCallback(response);
+				}
+				// transform data
+				if (!response.config?.transform) {
+					return response;
+				}
 
+				const { code, message, data } = response.data;
+
+				if (code === 200) {
 					return data;
+				} else {
+					if (response.config?.showErrorMessage) {
+						console.log(message);
+						return;
+					}
 				}
 
 				return this.handleError(response);
@@ -184,53 +212,34 @@ export class Http {
 	}
 
 	/**
-	 * 合并 Axios 请求配置和 Http 提示配置
-	 * @param config - Axios 请求配置
-	 * @param tipConfig - Http 提示配置
-	 * @returns Http 请求配置
-	 */
-	private mergeConfig<D>(config?: AxiosRequestConfig<D>, tipConfig?: ExpandInternalAxiosRequestConfig): ExpandInternalAxiosRequestConfig<D> {
-		return merge({}, config, tipConfig);
-	}
-
-	/**
 	 * get 请求
-	 * @param url - 请求地址
-	 * @param config - Axios 请求配置
-	 * @param tipConfig - Http 提示配置
-	 * @returns 请求结果
+	 * @param url
+	 * @param config
+	 * @returns
 	 */
-	public get<T = any, R = HttpResponseData<T>, D = any>(
-		url: string,
-		config?: ExpandInternalAxiosRequestConfig<D>,
-		tipConfig?: ExpandInternalAxiosRequestConfig
-	): Promise<R> {
-		return this._http.get(url, this.mergeConfig<D>(config, tipConfig));
+	public get<D = any, R = any>(url: string, config: ExpandAxiosRequestConfig<D> = {}): Promise<HttpResponse<R>> {
+		return this._http.get(url, config);
 	}
 
 	/**
 	 * delete 请求
-	 * @param url - 请求地址
-	 * @param config - Axios 请求配置
-	 * @param tipConfig - Http 提示配置
-	 * @returns 请求结果
+	 * @param url
+	 * @param data
+	 * @param config
+	 * @returns
 	 */
-	public delete<T = any, R = HttpResponseData<T>, D = any>(
-		url: string,
-		config?: ExpandInternalAxiosRequestConfig<D>,
-		tipConfig?: ExpandInternalAxiosRequestConfig
-	): Promise<R> {
-		return this._http.delete(url, this.mergeConfig(config, tipConfig));
+	public delete<D = any, R = any>(url: string, config: ExpandAxiosRequestConfig<D> = {}): Promise<HttpResponse<R>> {
+		return this._http.delete(url, config);
 	}
 
 	/**
 	 * post 请求
-	 * @param url - 请求地址
-	 * @param data - 请求参数
-	 * @param config - Http 请求配置
-	 * @returns 请求结果
+	 * @param url
+	 * @param data
+	 * @param config
+	 * @returns
 	 */
-	public post<T = any, R = HttpResponseData<T>, D = any>(url: string, data?: D, config?: ExpandInternalAxiosRequestConfig<D>): Promise<R> {
+	public post<D = any, R = any>(url: string, data?: D, config: ExpandAxiosRequestConfig<D> = {}): Promise<HttpResponse<R>> {
 		return this._http.post(url, data, config);
 	}
 
@@ -241,7 +250,7 @@ export class Http {
 	 * @param config - Http 请求配置
 	 * @returns 请求结果
 	 */
-	public put<T = any, R = HttpResponseData<T>, D = any>(url: string, data?: D, config?: ExpandInternalAxiosRequestConfig<D>): Promise<R> {
+	public put<D = any, R = any>(url: string, data?: D, config?: ExpandAxiosRequestConfig<D>): Promise<HttpResponse<R>> {
 		return this._http.put(url, data, config);
 	}
 
@@ -252,7 +261,7 @@ export class Http {
 	 * @param config - Http 请求配置
 	 * @returns 请求结果
 	 */
-	public patch<T = any, R = HttpResponseData<T>, D = any>(url: string, data?: D, config?: ExpandInternalAxiosRequestConfig<D>): Promise<R> {
+	public patch<D = any, R = any>(url: string, data?: D, config?: ExpandAxiosRequestConfig<D>): Promise<HttpResponse<R>> {
 		return this._http.patch(url, data, config);
 	}
 }

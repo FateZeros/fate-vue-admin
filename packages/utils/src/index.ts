@@ -1,1 +1,1 @@
-export { Http, type HttpConfig } from './http';
+export { Http } from './http';

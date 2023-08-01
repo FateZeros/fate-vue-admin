@@ -6,7 +6,7 @@ import request from '@/utils/request';
  * @returns
  */
 export function getCapture<T>() {
-	return request.get<T>('/api/v1/getCaptcha', {}, { title: '获取登录验证码' });
+	return request.get<T>('/api/v1/getCaptcha', { title: '获取登录验证码' });
 }
 
 /**
@@ -15,5 +15,5 @@ export function getCapture<T>() {
  * @returns
  */
 export function login<T>(data: ILoginData) {
-	return request.post<T>('/login', data, { title: '登录' });
+	return request.post<ILoginData, T>('/login', data, { title: '登录' });
 }

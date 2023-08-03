@@ -15,6 +15,12 @@ pnpm changeset
 pnpm changeset version
 ```
 
+查看 `npm config`
+
+```bash
+// 查看 npm 配置
+npm config list
+```
 
 ## packages 之间互相引用
 
@@ -22,6 +28,20 @@ pnpm changeset version
 
 ```bash
 pnpm add @tiger/utils -D --filter admin-web 
+```
+
+## 遇到问题
+
+1. Public registration is not allowed 问题
+
+由于 `npm config` 设置不正确引起
+
+```bash
+// 旧有 配置
+https://registry.npmmirror.com/
+
+// 设置 npm config 
+npm config set registry https://registry.npmjs.org/
 ```
 
 ## 参考 

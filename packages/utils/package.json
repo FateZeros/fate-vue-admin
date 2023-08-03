@@ -1,35 +1,39 @@
 {
-  "name": "@tiger/utils",
-  "version": "0.0.1",
-  "description": "Progressive request tool based on axios",
-  "type": "module",
-  "main": "es/index.js",
-  "module": "es/index.js",
-  "types": "index.d.ts",
-  "scripts": {
-    "dev": "tsc -w",
-    "build": "rimraf ./es && tsc"
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./es/*"
-      ]
-    }
-  },
-  "exports": {
-    ".": "./es/index.js",
-    "./*": "./*"
-  },
-  "files": [
-    "es"
-  ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "axios": "^1.4.0",
-    "rimraf": "^5.0.1",
-    "typescript": "^5.1.6"
-  }
+	"name": "@tiger/utils",
+	"version": "2.0.0",
+	"description": "Progressive request tool based on axios",
+	"type": "module",
+	"main": "es/index.js",
+	"module": "es/index.js",
+	"types": "index.d.ts",
+	"scripts": {
+		"dev": "tsc -w",
+		"build": "rimraf ./es && tsc"
+	},
+	"typesVersions": {
+		"*": {
+			"*": [
+				"./es/*"
+			]
+		}
+	},
+	"exports": {
+		".": "./es/index.js",
+		"./*": "./*"
+	},
+	"files": [
+		"es"
+	],
+	"keywords": [],
+	"author": "FateJane@163.com",
+	"license": "ISC",
+	"devDependencies": {
+		"axios": "^1.4.0",
+		"rimraf": "^5.0.1",
+		"typescript": "^5.1.6"
+	},
+	"packageManager": "pnpm@8.0.0",
+	"engines": {
+		"pnpm": ">=8.0"
+	}
 }

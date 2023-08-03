@@ -6,7 +6,9 @@
 		"prepare": "husky install",
 		"preinstall": "npx -y only-allow pnpm",
 		"admin:dev": "pnpm run --filter admin-web dev",
-		"admin:build": "pnpm run --filter admin-web build"
+		"admin:build": "pnpm run --filter admin-web build",
+		"utils:build": "pnpm run --filter @tiger/utils build",
+		"utils:release": "pnpm publish --filter @tiger/utils"
 	},
 	"keywords": [
 		"vue3",
@@ -22,6 +24,7 @@
 		"vue-router": "^4.2.4"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.26.2",
 		"@types/lodash-es": "^4.17.8",
 		"@typescript-eslint/eslint-plugin": "^6.2.0",
 		"@typescript-eslint/parser": "^6.2.0",

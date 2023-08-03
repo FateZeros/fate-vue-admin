@@ -36,7 +36,7 @@
 			&-login {
 				position: relative;
 				z-index: 2;
-				background-color: #fff;
+				background-color: var(--common-primary-color);
 				border-radius: 10px;
 
 				@include flex(column);

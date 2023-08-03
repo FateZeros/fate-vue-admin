@@ -26,7 +26,7 @@
 	],
 	"keywords": [],
 	"author": "FateJane@163.com",
-	"license": "ISC",
+	"license": "MIT",
 	"devDependencies": {
 		"axios": "^1.4.0",
 		"rimraf": "^5.0.1",

@@ -1,12 +1,11 @@
 <template>
 	<div class="v-login">
-		<div class="v-login-left">
-		</div>
+		<div class="v-login-left"></div>
 		<div class="v-login-right">
 			<div class="v-login-right-main">
-				<div class="v-login-right-main">
-					<div class="v-login-right-main-title">Admin Web 欢迎您！</div>
-					<div class="v-login-right-main-wrap">
+				<div class="v-login-right-main-login">
+					<div class="v-login-right-main-login-title">Admin Web 欢迎您！</div>
+					<div class="v-login-right-main-login-wrap">
 						<a-tabs v-model:activeKey="activeKey">
 							<a-tab-pane key="account" tab="账号登录">
 								<c-account />
@@ -14,7 +13,6 @@
 						</a-tabs>
 					</div>
 				</div>
-
 				<c-border-circle />
 			</div>
 		</div>

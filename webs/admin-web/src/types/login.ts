@@ -4,4 +4,12 @@
 export interface ILoginData {
 	userName: string;
 	password: string;
+	code: string;
+}
+
+/**
+ * 验证码
+ */
+export interface ICaptureData {
+	data: string;
 }

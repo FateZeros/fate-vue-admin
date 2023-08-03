@@ -1,9 +1,6 @@
 import { defineComponent, onBeforeMount, reactive, ref } from 'vue';
-import { getCapture } from '@/api/login';
-
-interface ICaptureData {
-	data: string;
-}
+import { getCapture, login } from '@/api/login';
+import { ICaptureData, ILoginData } from '@/types';
 
 // 账号登录
 export default defineComponent({
@@ -18,8 +15,19 @@ export default defineComponent({
 		const loading = ref<boolean>(false);
 		const codeImg = ref<string>('');
 
-		async function onFinish() {
+		async function onSubmit() {
 			console.log(form, 11);
+			try {
+				const params = {
+					userName: form.userName,
+					password: form.password,
+					code: form.code,
+				};
+				const res = await login<ILoginData>(params);
+				console.log(res, 111);
+			} catch (error) {
+				console.log(error);
+			}
 		}
 
 		async function getCaptchaImage() {
@@ -40,7 +48,7 @@ export default defineComponent({
 		return {
 			form,
 			loading,
-			onFinish,
+			onSubmit,
 			codeImg,
 			getCaptchaImage,
 		};

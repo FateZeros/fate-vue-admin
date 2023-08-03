@@ -118,17 +118,17 @@ export class Http {
 					response.config.interceptorHooks.beforeResponseCallback(response);
 				}
 				// transform data
-				if (!response.config?.transform) {
+				if (response.config?.transform) {
 					return response;
 				}
 
-				const { code, message, data } = response.data;
+				const { status } = response;
 
-				if (code === 200) {
-					return data;
+				if (status === 200) {
+					return response.data;
 				} else {
 					if (response.config?.showErrorMessage) {
-						console.log(message);
+						console.log(response.data?.title);
 						return;
 					}
 				}

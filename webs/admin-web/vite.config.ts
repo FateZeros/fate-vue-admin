@@ -15,7 +15,7 @@ function server(env: Record<string, string>) {
 			'/api': {
 				target: env.PROXY_PATH_API,
 				changeOrigin: true,
-				// rewrite: (path: string) => path.replace(/^\/api/, ''),
+				rewrite: (path: string) => path.replace(/^\/api/, ' '),
 			},
 		},
 	};

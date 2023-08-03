@@ -15,5 +15,5 @@ export function getCapture<T>() {
  * @returns
  */
 export function login<T>(data: ILoginData) {
-	return request.post<ILoginData, T>('/login', data, { title: '登录' });
+	return request.post<ILoginData, T>('/api/login', data, { title: '登录' });
 }

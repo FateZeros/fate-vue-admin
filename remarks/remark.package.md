@@ -56,6 +56,10 @@ npm config set registry https://registry.npmjs.org/
 
 3. [包名] is not in this registry
 
+由于包名包含 `@` 字段，需要在 npm 包官网中新建 orgnization 才可以发相对应的 `@[ogr]/[packageName]`
+
+参考 [npm 发布 scope 包](https://docs.npmjs.com/about-scopes)
+
 ## 参考 
 
 [npm docs](https://docs.npmjs.com/getting-started/) </br>

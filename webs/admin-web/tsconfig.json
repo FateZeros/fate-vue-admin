@@ -22,7 +22,7 @@
 
 		"paths": {
 			"@/*": ["./src/*"],
-			"@tiger/utils": ["../../packages/utils/src"],
+			"@leefs/utils": ["../../packages/utils/src"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],

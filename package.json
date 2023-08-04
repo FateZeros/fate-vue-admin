@@ -8,8 +8,8 @@
 		"release": "pnpm publish -r",
 		"admin:dev": "pnpm run --filter admin-web dev",
 		"admin:build": "pnpm run --filter admin-web build",
-		"utils:build": "pnpm run --filter @tiger/utils build",
-		"utils:release": "pnpm publish --filter @tiger/utils"
+		"utils:build": "pnpm run --filter @leefs/utils build",
+		"utils:release": "pnpm publish --filter @leefs/utils"
 	},
 	"keywords": [
 		"vue3",

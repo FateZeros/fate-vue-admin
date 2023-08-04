@@ -24,10 +24,10 @@ npm config list
 
 ## packages 之间互相引用
 
-在 `admin-web` 中使用 `@tiger/utils`
+在 `admin-web` 中使用 `@leefs/utils`
 
 ```bash
-pnpm add @tiger/utils -D --filter admin-web 
+pnpm add @leefs/utils -D --filter admin-web 
 ```
 
 ## 遇到问题

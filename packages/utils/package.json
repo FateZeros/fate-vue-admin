@@ -1,5 +1,5 @@
 {
-	"name": "@tiger/utils",
+	"name": "@leefs/utils",
 	"version": "0.1.0",
 	"description": "Progressive request tool based on axios",
 	"type": "module",

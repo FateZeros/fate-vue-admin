@@ -44,6 +44,18 @@ https://registry.npmmirror.com/
 npm config set registry https://registry.npmjs.org/
 ```
 
+2. 402 Payment Required ... You must sign up for private packages
+
+```bash
+// 配置 package.json
+
+"publishConfig": {
+	"access": "public"
+}
+```
+
+3. [包名] is not in this registry
+
 ## 参考 
 
 [npm docs](https://docs.npmjs.com/getting-started/) </br>

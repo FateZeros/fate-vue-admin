@@ -5,11 +5,11 @@
 	"scripts": {
 		"prepare": "husky install",
 		"preinstall": "npx -y only-allow pnpm",
+		"release": "pnpm publish -r",
 		"admin:dev": "pnpm run --filter admin-web dev",
 		"admin:build": "pnpm run --filter admin-web build",
 		"utils:build": "pnpm run --filter @tiger/utils build",
-		"utils:release": "pnpm publish --filter @tiger/utils",
-		"release": "pnpm publish -r"
+		"utils:release": "pnpm publish --filter @tiger/utils"
 	},
 	"keywords": [
 		"vue3",

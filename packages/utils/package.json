@@ -1,6 +1,6 @@
 {
 	"name": "@tiger/utils",
-	"version": "2.0.0",
+	"version": "0.1.0",
 	"description": "Progressive request tool based on axios",
 	"type": "module",
 	"main": "es/index.js",

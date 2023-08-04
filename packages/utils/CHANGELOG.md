@@ -1,13 +1,7 @@
 # @tiger/utils
 
-## 2.0.0
+## 0.1.0
 
-### Major Changes
+### Minor Changes
 
--   测试
-
-## 1.0.0
-
-### Major Changes
-
--   c
+-   ##[0.0.1]

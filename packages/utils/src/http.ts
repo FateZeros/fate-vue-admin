@@ -56,6 +56,8 @@ export interface ExpandInternalAxiosRequestConfig<D = any> extends InternalAxios
 	showErrorMessage?: boolean;
 	// 是否数据转换
 	transform?: boolean;
+	// 接口名称
+	title?: string;
 }
 
 /**
@@ -121,15 +123,19 @@ export class Http {
 				if (response.config?.transform) {
 					return response;
 				}
+				console.log(response, 'interceptResponse');
 
-				const { status } = response;
+				const { status, config } = response;
 
 				if (status === 200) {
-					return response.data;
-				} else {
-					if (response.config?.showErrorMessage) {
-						console.log(response.data?.title);
-						return;
+					const { code } = response.data;
+					if (code === 200) {
+						return response.data;
+					} else {
+						if (config?.showErrorMessage) {
+							console.log(config?.title);
+						}
+						return Promise.reject(`${config?.title || '接口请求'}失败~`);
 					}
 				}
 

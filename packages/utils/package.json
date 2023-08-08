@@ -42,5 +42,8 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/FateZeros/fate-vue-admin.git"
+	},
+	"dependencies": {
+		"localforage": "^1.10.0"
 	}
 }

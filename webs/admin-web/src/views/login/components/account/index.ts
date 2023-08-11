@@ -1,6 +1,7 @@
 import { defineComponent, onBeforeMount, reactive, ref } from 'vue';
 import { getCapture, login } from '@/api/login';
 import { ICaptureData, ILoginData } from '@/types';
+import storage from '@/utils/storage';
 
 // 账号登录
 export default defineComponent({
@@ -24,7 +25,9 @@ export default defineComponent({
 					code: form.code,
 				};
 				const res = await login<ILoginData>(params);
-				console.log(res, 111);
+				if (res.code === 200) {
+					storage.set('test', 111);
+				}
 			} catch (error) {
 				console.log(error);
 			}

@@ -50,6 +50,9 @@ redis-server
 // 后台启动 redis
 redis-server &
 
+// 带配置服务的重启
+redis-server /usr/local/redis-6.0.20/redis.conf &
+
 // 关闭 redis 服务
 > redis-cli
 > shutdown
@@ -65,8 +68,19 @@ redis-server
 ps -ef | grep redis
 ```
 
+## 配置 redis disk 保存目录
+
+```bash
+cd /usr/local/redis
+
+vi redis.conf
+
+dir [redis-db 文件夹]
+```
+
 
 ## 参考
 
 [mac os 安装 redis](https://www.jianshu.com/p/3bdfda703552) </br>
 [redis 相关命令](https://blog.csdn.net/JacaCao/article/details/111595360) </br>
+[redis 相关配置](https://cloud.tencent.com/developer/article/1506991)</br>
